@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Battle</title>
+</head>
+<body>
+<!--
+    Итак, начинаем битву гладиаторов! Суть в следующем: Вы указываете в соответствующих полях начальную силу Легендаруса
+    и параметры других гладиаторов. Неуказанные параметры считать равными нулю.
+    Легендарус начинает битву с первым гладиатором. Битва происходит путем сравнения силы гладиатора и Легендаруса.
+    В случае победы (сила Легендаруса должна быть строго больше силы гладиатора) Легендарус забирает оружие
+    поверженного гладиатора, и прибавляет его к своей силе.
+    После этого Легендарус приступает к схватке со вторым гладиатором, потом, в случае выигрыша, со следующим, и т.д.
+
+    По кнопке "В бой" надо определить, победит ли Легедарус в битве или потерпит поражение. Если победит, то какова
+    будет его накопленная сила?
+
+    Можно как угодно редактировать этот HTML-шаблон для своего удобства и внешнего вида.
+    Можно добавить кнопку, при нажатии на которую в полях подставляются случайные значения.
+-->
+
+    <h1>Бои гладиаторов</h1>
+
+    <label for="spartakus-power">Легендарус, начальная сила:</label>
+
+    <input type="text" id="spartakus-power" value="10"><br/>
+    <br/>
+
+    <button id="random_gladiator">Рандомная мощь Гладиатора Легендаруса</button><br/>
+    <button id="random_power">Рандомные значения силы врагов</button><br/>
+    <button id="random_weapon">Рандомные значения мощи оружия</button><br/>
+
+    <h2>Гладиаторы:</h2>
+
+    <p>1)
+        <label>Сложность:
+            <input class="enemy_power" name="power1" type="text" value="4">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power1" type="text" value="2">
+        </label>
+    </p>
+
+    <p>2)
+        <label>Сложность:
+            <input class="enemy_power" name="power2" type="text">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power2" type="text">
+        </label>
+    </p>
+
+    <p>3)
+        <label>Сложность:
+            <input class="enemy_power" name="power3" type="text">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power3" type="text">
+        </label>
+    </p>
+
+    <p>4)
+        <label>Сложность:
+            <input class="enemy_power" name="power4" type="text">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power4" type="text">
+        </label>
+    </p>
+
+    <p>5)
+        <label>Сложность:
+            <input class="enemy_power" name="power5" type="text">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power5" type="text">
+        </label>
+    </p>
+
+    <p>6)
+        <label>Сложность:
+            <input class="enemy_power" name="power6" type="text" value="6">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power6" type="text" value="6">
+        </label>
+    </p>
+
+    <p>7)
+        <label>Сложность:
+            <input class="enemy_power" name="power7" type="text">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power7" type="text">
+        </label>
+    </p>
+
+    <p>8)
+        <label>Сложность:
+            <input class="enemy_power" name="power8" type="text">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power8" type="text">
+        </label>
+    </p>
+
+    <p>9)
+        <label>Сложность:
+            <input class="enemy_power" name="power9" type="text">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power9" type="text">
+        </label>
+    </p>
+    
+    <p>10)
+        <label>Сложность:
+            <input class="enemy_power" name="power10" type="text" value="5">
+        </label>
+        <label>Оружие:
+            <input class="weapon" name="power10" type="text">
+        </label>
+    </p>
+
+    <button id="start">В бой!</button>
+    <p id="result"></p>
+
+<script>
+    // добавил классы в HTML на силу врагов и сощь оружия
+    // сделал три кнопки рандомайзера для всех величин
+
+    //функция введения рандомного значения начальной силы гладиатора
+    document.getElementById('random_gladiator').onclick = function() {
+        let random = document.getElementById("spartakus-power");
+        random.value = Math.floor(Math.random() * 100);
+    }
+
+    //функция введения рандомных значений силы врагов
+    document.getElementById('random_power').onclick = function() {
+        let randomPower = document.getElementsByClassName("enemy_power");
+        for (let i = 0; i < randomPower.length; i++) {
+            randomPower[i].value = Math.floor(Math.random() * 100);
+        }
+    }
+
+    //функция введения рандомных значений мощи оружия
+    document.getElementById('random_weapon').onclick = function() {
+        let randomPower = document.getElementsByClassName("weapon");
+        for (let i = 0; i < randomPower.length; i++) {
+            randomPower[i].value = Math.floor(Math.random() * 30); // данные цифры умножения Math.random (у гладиатора, врагов, оружия) подобрал на основании тестов - чтобы выигрыш и проигрыш были приблизительно равны
+        }
+    }
+
+    // основная функция вычисления победы
+    document.getElementById('start').onclick = function() {
+
+        // забираем данные из Html
+        let listEnemy = document.getElementsByClassName("enemy_power");
+        let gladiator = +document.getElementById("spartakus-power").value;
+        let enemyWeapon = document.getElementsByClassName("weapon");
+        let resultFight = document.getElementById("result");
+
+        //запускаем каждый бой
+        for (let i = 0; i < listEnemy.length; i++) {
+
+            // проверяем, введено ли число в силу врага. Если там не число - приравниваем запись к нолю
+            if (isNaN(listEnemy[i].value)) {
+                listEnemy[i].value = 0;
+            }
+            // проверяем, введено ли число в мощь оружия. Если там не число - приравниваем запись к нолю
+            if (isNaN(enemyWeapon[i].value)) {
+                enemyWeapon[i].value = 0;
+            }
+
+            if (gladiator > listEnemy[i].value) {
+            gladiator += +enemyWeapon[i].value;
+
+            } else {
+                resultFight.innerHTML = (`И не смог знатный Гладиатор одолеть <s>Хоакина Фени</s>... врага номер ${i+1}`);
+                return resultFight; 
+            }
+
+        } resultFight.innerHTML = (`Уверенная победа Гладиатора с общей накопленной мощью ${gladiator}`);
+        return resultFight;
+    }
+</script>
+</body>
+</html>

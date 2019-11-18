@@ -1,0 +1,35 @@
+* {
+    padding:0;
+    margin:0;
+}
+
+.main {
+    width:90%;
+    height:80vh;
+    position: relative;
+    margin: 3% auto;
+    border: 1px solid #000;
+}
+
+#around_button {
+    box-sizing: border-box;
+    width:86px;
+    height: 86px;
+    display: block;
+    position: absolute;
+
+}
+
+.button {
+    padding:15px 10px;
+    background: linear-gradient(45deg, #5d8f87, #46e8cf);
+    border-radius: 50px;
+    text-align: center;
+    width:70px;
+    height: 70px;
+    margin:8px;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+}

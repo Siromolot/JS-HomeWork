@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HomeWork 7 (Siromolot)</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
+</head>
+
+<body id="body">
+<!-- 
+    В числе элементов должны быть:
+    - Имя (текстовое поле)
+    - Фамилия (текстовое поле)
+    - Язык программирования (выпадающий список select, элементы набросайте сами). По умолчанию должен стоять пункт "Выберите..."
+    - Дата рождения (текстовое поле)
+    - Электронная почта (текстовое поле)
+    - Пол - радиокнопки м/ж - вроде таких: http://www.w3schools.com/html/tryit.asp?filename=tryhtml_input_radio
+    - кнопка "отправить" внизу формы.
+
+  При нажатии на кнопку происходит следующее:
+  1) Все поля проверяются на заполненность. В select'е без выбора языка программирования пункт "Выберите..." приводит к ошибке.
+  2) Поле даты рождения проверяется на то, что данные в нем - строка формата DD.MM.YYYY, причем DD - правильное число дней
+    месяца MM, т.е. в январе или июле может быть 31 день, а в феврале или апреле нет. Кстати, для упрощения,
+    в феврале всегда проверяйте на максимум = 29. YYYY, очевидно, год.
+  3) После каждого поля с ошибкой добавляется сообщение о том, что именно пользователь сделал неверно.
+  4) Подпись к полю ввода (текст-пояснение до поля - например "Имя") - окрашивается в цвет, свидетельствующий об ошибке (красный, например)
+  5) Само поле также сигнализирует о проблеме - фоном, возможно - рамкой (border).
+  6) Поля, в которых все хорошо, очистить от ошибок (все подписи и стили должны стать нормальными)
+  7) Если всё совсем хорошо - showModal("Спасибо, форма принята"), где
+    showModal -- ваша функция, которую вы делали на занятии.
+  8) В полях, где все хорошо, показать "успех" - зеленые подписи к полям ввода/фон и т.п.
+  9) Проверить поле электронная почта на соответствие корректному e-mail -- придется погуглить.
+  10) Если все совсем хорошо, заблокируйте все поля ввода - сделайте их неактивными, чтобы ввести в них данные стало невозможно. -->
+
+
+
+  <!-- блок формы заявки -->
+  <div id="form_register" >
+
+    <div class="main_topic_form">
+      <div class="left_side_topic">
+          <i class="fa fa-plus-square-o fa-4x" aria-hidden="true"></i> 
+      </div>
+      <div class="right_side_topic">
+          <p class="question_topic"> Нет аккаунта?</p>
+          <p class="register_topic">Зарегистрируйтесь</p>
+      </div>
+    </div>
+    
+    <form id="form">  <!-- в method потом введем post -->
+
+    <div class="side_form left_side">
+
+      <div class="container">
+        <label for="name_field">Ваше имя</label><br/>
+        <input name="name_field" id="name_field" type="text" spellcheck="false" placeholder="Элам"><br/>
+        <div id="msg_name"></div>
+      </div>
+
+      <div class="container">
+        <label for="surname_field">Ваша фамилия</label><br/>
+        <input name="surname_field" id="surname_field" type="text" spellcheck="false" placeholder="Харниш"><br/>
+        <div id="msg_surname"></div>
+      </div>
+
+      <div class="container">
+          <label for="select_it_lang">Язык программирования</label><br/>
+          <select name="select_it_lang" id="select_it_lang">
+            <option value="">Выберите...</option>
+            <option class="select_opt" value="JavaScript">JavaScript</option>
+            <option class="select_opt" value="Java">Java</option>
+            <option class="select_opt" value="Python">Python</option>
+            <option class="select_opt" value="C">C</option>
+            <option class="select_opt" value="BrainFuck">Brainfuck</option>
+            <option class="select_opt" value="PHP">PHP</option>
+            <option class="select_opt" value="Other">Другой</option>
+          </select>
+        <div id="msg_lang"></div>
+      </div>
+
+      <div class="container">
+        <label for="date_of_birth">Ваша дата рождения</label><br/>
+        <input name="date_of_birth" type="text" id="date_of_birth" placeholder="1910.01.31"><br/>
+        <div id="msg_birth"></div>
+      </div>
+
+      <div class="container" id="container_radio">
+        <label for="container_radio">Ваш пол</label><br/>
+        <input class="radio" type="radio" onchange="chooseGender()" name="gender" value="male"><label>Мужской</label><br/>
+        <input class="radio" type="radio" onchange="chooseGender()" name="gender" value="female"><label>Женский</label><br/>
+        <div id="msg_gender"></div>
+      </div>
+
+    </div>
+
+    <div class="side_form  right_side">
+      <div class="container">
+        <label for="email">Ваш e-mail</label><br/>
+        <input name="email" type="text" id="email" placeholder="example@ya.ru"><br/>
+        <div id="msg_email"></div>
+      </div>
+
+      <div class="container">
+        <label for="password">Задайте пароль</label><br/>
+        <input name="password" type="password" id="password"><br/>
+        <div id="msg_pass"></div>
+      </div>
+
+      <div class="container">
+        <label for="repeat_password">Повторите пароль</label><br/>
+        <input name="repeat_password" type="password" id="repeat_password"><br/>
+        <div id="msg_repeat_pass"></div>
+      </div>
+
+      <input class="button button_edit" value="Редактировать" onclick="editForm()"><br/>
+
+      <input class="button button_submit" type="button" value="Отправить" onclick="checkFill()"><br/>
+
+    </div>
+  </form>
+
+
+  </div>
+
+  <!-- модальное окно -->
+  <div id="modal">
+
+      <p class="modal_text">Спасибо, форма принята</p>
+
+    <div class="close_modal" onclick="closeModal()">
+      <p class="close_modal_text">Закрыть</p>
+    </div>
+
+  </div>
+
+<script src="HomeWork7.js"></script>  
+
+</body>
+
+</html>

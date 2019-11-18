@@ -1,0 +1,276 @@
+* {
+    padding:0;
+    margin:0;
+}
+
+@font-face {
+	font-family: Roboto;
+	src: url(fonts/Roboto-Regular.ttf);
+}
+@font-face {
+	font-family: "Roboto_Thin";
+	src: url(fonts/Roboto-Thin.ttf);
+}
+@font-face {
+	font-family: "Roboto_Light";
+	src: url(fonts/Roboto-Light.ttf);
+}
+@font-face {
+	font-family: "Roboto_Medium";
+	src: url(fonts/Roboto-Medium.ttf);
+}
+
+
+
+body {
+    height:calc(100vh - 100px);
+    background:radial-gradient(circle farthest-corner at 150px 150px,#c1a661, #0e415f);  
+
+}
+
+#form_register {
+    padding:25px 0;
+    margin:100px auto;
+    border:1px solid #b6b5b5;
+    width:600px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.main_topic_form {
+    display: flex;
+    margin: 0px 70px 25px 70px;
+}
+
+.left_side_topic {
+    margin-right:40px;
+}
+
+.fa-plus-square-o {
+    color: #fccc46;
+}
+
+.question_topic {
+    color:#fefcff;
+    font-size:18px;
+    font-family: Roboto;
+}
+.register_topic {
+    color:#fccc46;
+    font-size:35px;
+    font-family: Roboto;
+}
+form {
+    display: flex;
+    justify-content: space-around;
+}
+
+input::placeholder {
+    color:#c0c0c0;
+    font-size:11px;
+}
+.side_form {
+    /* margin-right: 50px; */
+    box-sizing: border-box;
+    width:calc(50% - 35px);
+}
+.left_side {
+    margin:0 35px 0 70px;
+}
+.right_side {
+    margin:0 70px 0 35px;
+    position: relative;
+}
+.container {
+    margin-bottom:6px;
+}
+input {
+    background: rgba(0, 0, 0, 0.2);
+    border:none;
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 2.5px rgba(0, 0, 0, 0.5);
+    width:100%;
+    padding:5px;
+    font-family: "Roboto";
+    font-size: 17px;
+    color:#fefcff;
+    letter-spacing: 1.3px;
+    outline:none;
+    box-sizing: border-box;
+    
+}
+
+input.custom {
+    caret-color: #fff; 
+}
+.radio {
+    box-shadow: none;
+    width:auto;
+    font-family: "Roboto_Light";
+    font-size: 14px;
+    cursor:pointer;
+}
+
+.container select {
+    color:#324644;
+    background: rgba(0, 0, 0, 0.2);
+    border:none;
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 2.5px rgba(0, 0, 0, 0.5);
+    width:100%;
+    padding:5px;
+    outline:none;
+    cursor:pointer;
+    font-family: "Roboto";
+    font-size: 17px;
+    color:#fefcff;
+
+}
+
+.container option {
+    font-family: "Roboto";
+    color:#324644;
+    background-color: #d7c085;
+    font-size: 15px;
+}
+
+label {
+    color:#324644;
+    line-height: 1.5;
+    font-family: "Roboto";
+    font-size: 14px;
+}
+
+.button {
+    width:100%;
+    font-size:14px;
+    padding:15px;
+    cursor:pointer;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 2.5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.button_edit {
+    margin-top:20px;
+    background:linear-gradient(135deg, #f5db99, #c1a661);
+}
+
+.button_submit {
+    bottom:21px;
+    background:linear-gradient(135deg, #4098cc, #1972a7);
+    position: absolute;
+}
+
+/* стили вывода ошибок или правильного ввода данных */
+
+.error {
+    color: #c72433;
+}
+
+.accept {
+    color: #0313b3 !important;
+}
+
+.mistake {
+    box-shadow: inset 1px 1px 2.5px rgba(255, 0, 0, 0.5)!important;
+}
+
+/* стили сообщений об ошибках или подтвеждениях ввода данных */
+#msg_name {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+#msg_surname {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+#msg_lang {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+#msg_birth {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+#msg_gender {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+#msg_email {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+#msg_pass {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+#msg_repeat_pass {
+    height: 15px;
+    font-family: Roboto;
+    font-size:13px;
+}
+
+/* модальное окно */
+#modal {
+    width:300px;
+    height: 180px;
+    display:none;
+    position: absolute;
+    top:30%;
+    left:40%;
+    background: linear-gradient(135deg, #f7eabc, #eed271);
+    border-radius: 5px;
+}
+.modal_text {
+    width:100%;
+    box-sizing: border-box;
+    padding-top:50px;
+    font-family: Roboto;
+    font-size: 16px;
+    text-align: center;
+    color:#2e2c25;
+}
+.close_modal {
+    width:100px;
+    height: auto;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    margin: 30px auto;
+    text-align: center;
+    padding:15px;
+    cursor:pointer;
+}
+.close_modal_text {
+    padding:10px auto;
+    font-family: Roboto;
+    font-size:14px;
+    color:#2e2c25;
+}
+.visible {
+    display:block !important;
+    z-index: 3;
+    opacity:1!important;
+}
+.shadow {
+    position: absolute;
+    top:0;
+    background: rgba(0, 0, 0, 0.8); 
+    width:100vw;
+    height:100vh;
+    z-index:2;
+}

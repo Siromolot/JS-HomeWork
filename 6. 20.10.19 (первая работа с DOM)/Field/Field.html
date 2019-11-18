@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="Field.css">
+</head>
+<body>
+<!--
+    Реализация данного задания -- заготовка для вашей игры,
+    которую вы будете делать на следующем ДЗ.
+
+    Необходимо сделать поле из белых клеточек (клеточка может иметь размер около 28×28 пикселей).
+    При клике на клеточку она должна менять цвет на черный (клик по ней
+    еще раз меняет цвет обратно на белый)
+    Под таблицей должна быть кнопка «поменять цвета».
+    При ее нажатии все цвета клеточек меняются на противоположные.
+
+    Делать поле удобно с помощью элемента <table>. Саму таблицу и кнопки надо
+    не вставлять в исходный код HTML, а сгенерировать и добавить в DOM страницы
+    через методы JavaScript, которые были пройдены на занятии! Причем размер
+    таблицы должен указываться в константах, чтобы потом пользователь
+    мог его задать (можете сразу так сделать).
+
+    Не забываем про стили для таблицы. Предполагается черная рамка вокруг
+    каждой клетки, да и всей таблицы в целом.
+
+    Подсказки:
+    Чтобы поменять цвета всех клеточек сразу, необязательно обходить их
+    в цикле. Если помечать нажатые клетки определенным классом,
+    то перекрасить их все одновременно можно, поменяв класс на самой таблице.
+
+    Ты можешь заметить, что, если быстро кликать по клеткам, браузер
+    пытается выделять ячейки таблицы, и выглядит это некрасиво. Если это
+    так, то надо средствами CSS сделать таблицу невыделяемой.
+-->
+<div class="menu">
+    <p class="game">ИГРА</p>
+    <p class="game_name">черное и белое</p>
+</div>
+
+<div class="main">
+    <div class="main_area">
+        <div class="left_area">
+
+            <div class="task">
+                <p class="task_topic">Задание 1</p>
+                <p class="task_description">Постройте таблицу.<br/>
+                    Для этого введите любое количество ячеек по оси Х (но не более 20) и по оси Y (но не более 15).<br />
+                    Теперь попробуйте понажимать на них</p>
+                </div>
+
+            <div class="user_data">
+                <form id="user_input">
+                    <input id="input1" type="text" placeholder="Введите количество ячеек по оси Х (столбцы)" /><br/>
+                    <input id="input2" type="text" placeholder="Введите количество ячеек по оси Y (строки)" />
+                </form>
+            </div>
+<!-- value="Построить таблицу" -->
+<!-- value="Изменить цвет всех ячеек на противоположный" -->
+<!--  value="Вернуть начальный белый цвет" -->
+
+        </div>
+        <div class="right_area" id="right_area">
+            
+        </div>
+    </div>
+</div>
+
+
+<!-- JS -->
+
+
+<script>
+
+// создание кнопок через JS
+// определяем родителя, куда вставятся кнопки
+let areaButton = document.getElementById("user_input");
+
+// кнопка создания таблицы
+let divCreateTable = document.createElement("div");
+divCreateTable.className = "button";
+divCreateTable.innerHTML = "<p>Построить таблицу</p>";
+divCreateTable.onclick = createTable;
+areaButton.appendChild(divCreateTable);
+
+// кнопка изменения цвета всех ячеек таблицы на противоположный
+let divChangeColor = document.createElement("div");
+divChangeColor.className = "button";
+divChangeColor.innerHTML = "<p>Изменить цвет всех ячеек на противоположный</p>";
+divChangeColor.onclick = changeColor;
+areaButton.appendChild(divChangeColor);
+
+// кнопка изменения цвета всех ячеек таблицы на дефолтный белый
+let divDefaultColor = document.createElement("div");
+divDefaultColor.className = "button";
+divDefaultColor.innerHTML = "<p>Вернуть начальный белый цвет</p>";
+divDefaultColor.onclick = defaultColor;
+areaButton.appendChild(divDefaultColor);
+
+// кнопка изменения цвета всех ячеек таблицы на черный
+let divBlackColor = document.createElement("div");
+divBlackColor.className = "button";
+divBlackColor.innerHTML = "<p>Все ячейки черные</p>";
+divBlackColor.onclick = blackColor;
+areaButton.appendChild(divBlackColor);
+
+
+// функция создания таблицы по параметрам ввода пользователя
+function createTable() {
+
+    /* очень важная проверка - проверяем, создавалась ли уже таблица ранее. Если да - удаляем ее и дальнейший скрипт создаст новую
+    с указанными или новыми параметрами. Если таблица не создавалась - создастся.
+    Это нужно для того, чтобы при неоднократном нажатии на кнопку "построить таблицу" не плодить множество таблиц.
+    А также, это удобно, если Пользователь захотел создать таблицу с другими параметрами и теперь ему не придется тыкать F5.
+    А за счет того, что мы проверяем по ID, а не по классу, есть гарантия, что мы не удалим ничего лишнего из Html.
+    Попробуйте, потестьте в браузере с подключенным файлом css - оч круто вышло*/
+    let checkTable = document.getElementById("table_game");
+    if (checkTable) {
+        checkTable.remove();
+    }
+
+    // создаем переменную для обозначения родителя, куда будет вставляться таблица
+    let right = document.getElementById("right_area");
+
+    // создаем таблицу и присваиваем ей id, который уже заранее описан в css
+    let table = document.createElement ("table");
+    table.id = "table_game";
+    
+    // получаем значения из input о размере таблицы
+    let rows_item = document.getElementById("input2").value;
+    let column_item = document.getElementById("input1").value;
+
+        // проверки на соответствие условиям
+        if (rows_item > 15) {
+            alert("Вы ввели число строк более 15.\nПовторите ввод");
+            // если проверка не проходит, то сразу очищаем input, чтобы Пользователь не делал этого руками или не перезагружал страницу 
+            document.getElementById("input2").value = "";
+        }
+
+        else if (column_item > 20) {
+            alert ("Вы ввели число столбцов более 20.\nПовторите ввод")
+            document.getElementById("input1").value = "";
+        }
+
+        else if (rows_item < 1 || column_item < 1) {
+            alert("Невозможно создать таблицу с параметрами, меньшими чем единица.\nПовторите ввод");
+            document.getElementById("input2").value = "";
+            document.getElementById("input1").value = "";
+        }
+
+        else if (isNaN(rows_item) || isNaN(column_item)) {
+            alert("Вы ввели не числа.\nПовторите ввод");
+            document.getElementById("input2").value = "";
+            document.getElementById("input1").value = "";
+        }
+
+        else {
+            //если все условия ок, то через вложенные циклы создаем строки и ячейки и сразу заносим их как в "матрешку"
+            for (let i = 0; i < rows_item; i++) {
+            let rows = document.createElement ("tr");
+
+                for (let j = 0; j < column_item; j++) {
+                    let cells = document.createElement ("td");
+
+                    // присовение классов нам пригодится далее для замены цвета (white_back - будет по умолчанию белым), а td_game - неизменяемый класс для выборки этих элементов (т.е. ячеек)
+                    cells.className = "white_back td_game"; 
+
+                    // код на смену цвета одной ячейки
+                    cells.onclick = function changeOneColor() {
+                        cells.classList.toggle("black_back");
+                    };
+
+                    rows.appendChild(cells);
+                }
+                table.appendChild(rows);
+            }
+        right.appendChild(table);
+        }
+}
+
+//код на смену цвета всего поля на противоположный
+function changeColor() {
+    let tdElements = document.getElementsByClassName("td_game");
+    for (let tdItem of tdElements) {
+        // проверяем, есть ли у элемента класс black_back. Есть - удаляем, нет - подключаем
+        tdItem.classList.toggle("black_back");
+    }
+
+}
+
+//код на смену цвета всего поля на дефолтный белый
+function defaultColor() {
+    let tdElements = document.getElementsByClassName("td_game");
+    for (let tdItem of tdElements) {
+        // удаляем у всех класс black_back
+        tdItem.classList.remove("black_back");
+    }
+
+}  
+
+//код на смену цвета всего поля на черный цвет
+function blackColor() {
+    let tdElements = document.getElementsByClassName("td_game");
+    for (let tdItem of tdElements) {
+        // применяем ко всем класс black_back
+        tdItem.classList.add("black_back");
+    }
+
+}  
+
+</script>
+
+</body>
+</html>
